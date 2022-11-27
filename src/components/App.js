@@ -1,13 +1,13 @@
 import './App.css';
 import React from "react";
 import Header from "./Header";
-import CoffeeSack from "./CoffeeSack";
+import CoffeeControl from "./CoffeeControl";
 
 function App() {
   return (
     <React.Fragment>
       <Header />
-      <CoffeeSack />
+      <CoffeeControl />
     </React.Fragment>
   );
 }
