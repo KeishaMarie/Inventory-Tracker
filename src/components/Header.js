@@ -1,7 +1,7 @@
 import React from "react";
 
 function Header(){
-  return(
+  return (
     <h1>Inventory</h1>
   );
 }

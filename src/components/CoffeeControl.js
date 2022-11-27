@@ -1,6 +1,8 @@
 import React from "react";
+import CoffeeEdit from "./CoffeeEdit";
 import CoffeeList from "./CoffeeList";
 import NewCoffeeSack from "./NewCoffeeSack";
+import CoffeeDetail from "./CoffeeDetail";
 
 class CoffeeControl extends React.Component {
 
@@ -14,7 +16,7 @@ class CoffeeControl extends React.Component {
     };
   }
 
-  handleAddingNewCoffeeSackToList = (newCoffeeSack) => {
+  handleAddingNewCoffeeSack = (newCoffeeSack) => {
     const newMainCoffeeList = this.state.mainCoffeeList.concat(newCoffeeSack);
     this.setState({mainCoffeeList: newMainCoffeeList,
       formVisibleOnPage: false });
@@ -35,7 +37,7 @@ class CoffeeControl extends React.Component {
   }
 
   handleUpdatingSelectedCoffeeSack = (id) => {
-    const selectedCoffeeSack = this.state.mainCoffeeList.filter(coffeeSack => coffeeSack.id === id) [0];
+    const selectedCoffeeSack = this.state.mainCoffeeList.filter(coffeeSack => coffeeSack.id === id)[0];
     this.setState({selectedCoffeeSack: selectedCoffeeSack});
   }
 
@@ -63,7 +65,35 @@ class CoffeeControl extends React.Component {
   }
 
   render() {
-    
+    let currentlyVisibleState = null;
+    let buttonText = null;
+    if (this.state.editing) {
+      currentlyVisibleState = <CoffeeEdit
+        coffeeSack = {this.state.selectedCoffeeSack}
+        onCoffeeEdit = {this.handleEditingCoffeeSack} />
+      buttonText = "Back to Inventory";
+    } else if (this.state.selectedCoffeeSack != null) {
+      currentlyVisibleState = <CoffeeDetail
+        coffeeSack = {this.state.selectedCoffeeSack}
+        onClickingDelete = {this.handleDeletingCoffeeSack}
+        onClickingEdit = {this.handleEditClick} />
+      buttonText = "Back to Inventory";
+    }else if (this.state.formVisibleOnPage) {
+      currentlyVisibleState = <NewCoffeeSack
+        onNewCoffeeSackCreation = {this.handleAddingNewCoffeeSack} />
+      buttonText = "Back to Inventory"
+    } else {
+      currentlyVisibleState = <CoffeeList
+        coffeeList = {this.state.mainCoffeeList}
+        onCoffeeSackSelection = {this.handleUpdatingSelectedCoffeeSack} />
+      buttonText = "Add Inventory"
+    }
+    return (
+      <React.Fragment>
+        {currentlyVisibleState}
+        <button onClick={this.handleClick}>{buttonText}</button>
+      </React.Fragment>
+    );
   }
 }
 
