@@ -36,7 +36,7 @@ class CoffeeControl extends React.Component {
     }
   }
 
-  handleUpdatingSelectedCoffeeSack = (id) => {
+  handleChangingSelectedCoffeeSack = (id) => {
     const selectedCoffeeSack = this.state.mainCoffeeList.filter(coffeeSack => coffeeSack.id === id)[0];
     this.setState({selectedCoffeeSack: selectedCoffeeSack});
   }
@@ -85,7 +85,7 @@ class CoffeeControl extends React.Component {
     } else {
       currentlyVisibleState = <CoffeeList
         coffeeList = {this.state.mainCoffeeList}
-        onCoffeeSackSelection = {this.handleUpdatingSelectedCoffeeSack} />
+        onCoffeeSackSelection = {this.handleChangingSelectedCoffeeSack} />
       buttonText = "Add Inventory"
     }
     return (
