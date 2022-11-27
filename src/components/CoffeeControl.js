@@ -39,7 +39,32 @@ class CoffeeControl extends React.Component {
     this.setState({selectedCoffeeSack: selectedCoffeeSack});
   }
 
+  handleEditClick = () => {
+    this.setState({editing: true});
+  }
 
+  handleEditingCoffeeSack = (coffeeSackToEdit) => {
+    const editedMainCoffeeList = this.state.mainCoffeeList
+      .filter(coffeeSack => coffeeSack.id !== this.state.selectedCoffeeSack.id)
+      .concat(coffeeSackToEdit);
+    this.setState({
+      mainCoffeeList: editedMainCoffeeList,
+      editing: false,
+      selectedCoffeeSack: null
+    });
+  }
+
+  handleDeletingCoffeeSack = (id) => {
+    const newMainCoffeeList = this.state.mainCoffeeList.filter(coffeeSack => coffeeSack.id !== id);
+    this.setState({
+      mainCoffeeList: newMainCoffeeList,
+      selectedCoffeeSack: null
+    });
+  }
+
+  render() {
+    
+  }
 }
 
 export default CoffeeControl;
